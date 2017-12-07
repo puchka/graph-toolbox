@@ -1,3 +1,4 @@
+#include<fstream>
 #include<iostream>
 #include<string>
 #include<vector>
@@ -12,6 +13,7 @@ const char* name[] = { "0", "1", "2", "3", "4" };
 
 int main()
 {
+  ofstream fout ("graph1.gv");
   int num_nodes, n;
   typedef adjacency_list<vecS, vecS, bidirectionalS> Graph;
   typedef std::pair<int,int> E;
@@ -32,12 +34,6 @@ int main()
       }
     }
   }
-  write_graphviz(std::cout, g, make_label_writer(name));
-  /*
-  vector<E>::iterator it;
-  vector<int>::iterator it2;
-  for(it = edges.begin(), it2 = weights.begin(); it != edges.end(); it++, it2++)    {
-    cout << "(" << it->first << ", " << it->second << ") : " << *it2 << endl;
-  }
-  */
+  write_graphviz(fout, g, make_label_writer(name));
+  system("dot -Tjpeg graph1.gv -o image.jpg");
 }
